@@ -1,0 +1,35 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+#  Define a m/z range
+mz_min = 300
+mz_max = 1300
+mz = np.linspace(mz_min, mz_max, 1001)
+
+# Define n° of peaks
+num_peaks = np.random.randint(90, 151)  
+# Define the positions of the peaks
+pos = np.random.uniform(mz_min, mz_max,num_peaks)  
+# Define noise level
+noise_level = 0.02
+spectra = []
+for i in range(4):
+    spectrum = np.zeros(1001)
+    for j in range(num_peaks):
+        intensity = np.random.uniform(1,10)
+        mean = pos[j]
+        stddev = np.random.rand() * 0.3
+        spectrum += intensity * np.exp(-((mz - mean) ** 2) / (2 * stddev ** 2))
+    noise = noise_level * np.random.randn(1001)
+    spectrum += noise
+    spectra.append(spectrum)
+
+# Plot the spectra
+for i, spectrum in enumerate(spectra):
+    plt.plot(mz, spectrum,label = f'Spectrum {i+1}')
+
+plt.xlabel('m/z')
+plt.ylabel('Intensity')
+plt.title('Synthetic Mass Spectra')
+plt.legend()
+plt.show()
