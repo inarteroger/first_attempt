@@ -1,1 +1,36 @@
 import numpy as np
+import math
+# Generate random numbers
+x = np.random.uniform(0,100,100)
+# Generate noise
+noise = np.random.normal(0,5,100)
+y = 2*x + 2 + noise
+# Length of x
+n = len(x)
+# Mean values
+mx = np.mean(x)
+my = np.mean(y)
+# Calculate the coefficient
+b1 = np.sum((x-mx)*(y-mx))/np.sum((x-mx)**2)
+# Calculate the intercept
+a = my - b1*mx
+# Calculate the y pred
+y_pred = a + b1*x
+# Calculate the variances
+var_sp = np.var(y_pred-mx)
+var_res = np.var(y_pred-y)
+var_tot = np.var(y-mx)
+# Print the results
+print(f"Var Expressed: {var_sp:.3f}")
+print(f"Var Residual: {var_res:.3f}")
+print(f"Var Total: {var_tot:.3f}")
+print(f"R squared: {var_sp/var_tot:.3f}")
+# Plot the resutls
+import matplotlib.pyplot as plt
+plt.scatter(x,y,label='Original Data')
+plt.plot(x,y_pred,color='red', label='Linear Regression')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Linear Regression')
+plt.legend()
+plt.show()
