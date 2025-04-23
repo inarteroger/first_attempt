@@ -11,15 +11,15 @@ n = len(x)
 mx = np.mean(x)
 my = np.mean(y)
 # Calculate the coefficient
-b1 = np.sum((x-mx)*(y-mx))/np.sum((x-mx)**2)
+b1 = np.sum((x-mx)*(y-my))/np.sum((x-mx)**2)
 # Calculate the intercept
 a = my - b1*mx
 # Calculate the y pred
 y_pred = a + b1*x
 # Calculate the variances
-var_sp = np.var(y_pred-mx)
+var_sp = np.var(y_pred-my)
 var_res = np.var(y_pred-y)
-var_tot = np.var(y-mx)
+var_tot = np.var(y-my)
 # Print the results
 print(f"Var Expressed: {var_sp:.3f}")
 print(f"Var Residual: {var_res:.3f}")
